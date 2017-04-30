@@ -12,7 +12,7 @@ classdef Maze < handle
         paths;
     end
     
-    properties(Constant = true, Access = private)
+    properties(Constant = true, Access = protected)
        NEW_LINE = 10;
        WALL = 0;
        ROAD = 1;
@@ -59,7 +59,7 @@ classdef Maze < handle
         end
     end
     
-    methods(Access = private,Static = true)
+    methods(Access = protected,Static = true)
         function paths=compute_paths(obj)
             %compute all the paths of maze
             paths = [];
