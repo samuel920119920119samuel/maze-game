@@ -13,7 +13,7 @@ classdef Maze < handle
     end
     
     properties(Constant = true, Access = protected)
-       NEW_LINE = 10;
+       NEW_LINE = newline;
        WALL = 0;
        ROAD = 1;
        PORTAL = 2;
@@ -40,8 +40,18 @@ classdef Maze < handle
             
             % reshape to one-row-per-line   
             width = find(map == Maze.NEW_LINE, 1); %length of line
-            map = reshape(map, width, [])' - '0';
-            map = map(:,1:end-1); %remove newline from map
+            if ismac
+                % for Mac plaform
+                map = reshape(map, width, [])' - '0';
+                map = map(:,1:end-1); %remove newline from map
+            elseif ispc
+                % for windows plaform
+                map = [map; Maze.NEW_LINE]; %add a number for reshape
+                map = reshape(map, width, [])' - '0';
+                map = map(:,1:end-2); %remove newline from map
+            else
+                disp('Platform not supported')
+            end
             
             [height, width] = size(map);
             
@@ -79,7 +89,7 @@ classdef Maze < handle
                 end
                 
                 if isempty(adjacent_cells)
-                   adjacent_cells = Maze.find_adjacent(obj,path.last());
+                   adjacent_cells = Maze.find_adjacefornt(obj,path.last());
                 end
                 
                 %adjacent_cells = Maze.find_adjacent(obj,path.last());
