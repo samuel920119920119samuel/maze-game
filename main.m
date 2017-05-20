@@ -1,0 +1,1 @@
+Maze('maze.txt').find_adjacent(obj, [2,2])
