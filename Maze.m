@@ -89,7 +89,7 @@ classdef Maze < handle
                 end
                 
                 if isempty(adjacent_cells)
-                   adjacent_cells = Maze.find_adjacefornt(obj,path.last());
+                   adjacent_cells = Maze.find_adjacent(obj,path.last());
                 end
                 
                 %adjacent_cells = Maze.find_adjacent(obj,path.last());
