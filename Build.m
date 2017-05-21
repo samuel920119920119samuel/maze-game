@@ -1,6 +1,7 @@
 classdef Build < Maze
     properties
         wall
+        road
     end
     
     methods
@@ -10,31 +11,39 @@ classdef Build < Maze
                 [wallrow, wallcol] = find(obj.map ==Build.WALL);
                 obj.wall = [wallrow, wallcol]; 
                 
-                %adjacent(1);
-                %line([.5,col+.5],[.5,.5]) % draw top border
-                %line([.5,col+.5],[row+.5,row+.5]) % draw bottom border
-                %line([.5,.5],[1.5,row+.5]) % draw left border
-                %line([col+.5,col+.5],[.5,row-.5])  % draw right border  
-                
+                [roadrow, roadcol] = find(obj.map ==Build.ROAD);
+                obj.road = [roadrow, roadcol]; 
                
+                drawBorder(obj);
+                hold on;
+                drawDot(obj);
+                
             end
         
             function  drawBorder(obj)
                  for order=1:1:size(obj.wall, 1)
-                        line( [obj.wall(order, 2)-.5, obj.wall(order, 2)-.5], [ obj.wall(order, 1)-.5, obj.wall(order, 1)+.5]);
-                        line(  [obj.wall(order, 2)+.5, obj.wall(order, 2)+.5], [ obj.wall(order, 1)-.5, obj.wall(order, 1)+.5] );
-                        line(  [obj.wall(order, 2)-.5, obj.wall(order, 2)+.5], [ obj.wall(order, 1)-.5, obj.wall(order, 1)-.5] );
-                        line(  [obj.wall(order, 2)-.5, obj.wall(order, 2)+.5], [ obj.wall(order, 1)+.5, obj.wall(order, 1)+.5] );
+                        if ( obj.wall(order, 2)-1 == 0 || obj.map( obj.wall(order, 1), obj.wall(order, 2)-1) ~= Maze.WALL) %left
+                            line( [obj.wall(order, 2)-.5, obj.wall(order, 2)-.5], [ obj.wall(order, 1)-.5, obj.wall(order, 1)+.5]);
+                        end                        
+                        if ( obj.wall(order, 2)+1 > obj.width || obj.map( obj.wall(order, 1), obj.wall(order, 2)+1) ~= Maze.WALL) %right
+                            line(  [obj.wall(order, 2)+.5, obj.wall(order, 2)+.5], [ obj.wall(order, 1)-.5, obj.wall(order, 1)+.5] );
+                        end
+                       if ( obj.wall(order, 1)-1 ==0 || obj.map( obj.wall(order, 1)-1, obj.wall(order, 2)) ~= Maze.WALL) %top
+                            line(  [obj.wall(order, 2)-.5, obj.wall(order, 2)+.5], [ obj.wall(order, 1)-.5, obj.wall(order, 1)-.5] );
+                       end
+                       if ( obj.wall(order, 1)+1 > obj.height || obj.map( obj.wall(order, 1)+1, obj.wall(order, 2)) ~= Maze.WALL) %down
+                            line(  [obj.wall(order, 2)-.5, obj.wall(order, 2)+.5], [ obj.wall(order, 1)+.5, obj.wall(order, 1)+.5] );
+                       end
                   end
                     set(gca,'Color','black', 'YDir','reverse');
             end
             
-            
-            
-           
-           
-          
-        
+            function drawDot(obj)
+                plot(obj.origin(2), obj.origin(1), 'y.', 'MarkerSize', 20)
+                plot(obj.final(2), obj.final(1), 'y.', 'MarkerSize', 20)
+                plot(obj.road(:, 2), obj.road(:, 1), 'g.',  'MarkerSize', 20)
+                plot(obj.portal(2, :), obj.portal(1, :), 'w.',  'MarkerSize', 20)
+            end
         
     end
 end
