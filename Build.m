@@ -16,8 +16,8 @@ classdef Build < Maze
                
                 drawBorder(obj);
                 hold on;
-                obj.paths = obj.compute_paths(obj);
-                drawDot(obj,  obj.paths(2, 1).container , [6, 13]);
+                %obj.paths = obj.compute_paths(obj);
+                %drawDot(obj,  obj.paths(2, 1).container);
                 
             end
         
@@ -80,7 +80,7 @@ classdef Build < Maze
                   set(gca, 'Color','black', 'YDir','reverse' );
             end
             
-            function drawDot(obj, path_pos, current_pos)
+            function drawDot(obj, path_pos)
                 
                 %plot(obj.origin(2), obj.origin(1), 'y.', 'MarkerSize', 40)
                 plot(obj.final(2), obj.final(1), 'y.', 'MarkerSize', 40)
@@ -88,13 +88,18 @@ classdef Build < Maze
                 plot(obj.portal(2, :), obj.portal(1, :), 'w.',  'MarkerSize', 20)
                 
                 plot(path_pos(2, :), path_pos(1, :), 'k.',  'MarkerSize', 20)
-                plot(current_pos(2), current_pos(1), 'y.',  'MarkerSize', 40)
-                I = imread('pacman.svg.png');         
-                %imrotate(A,90)
+                
+                %I = imread('pacman.svg.png');         
                 %imshow(imrotate(A,90));
-                imshow(I, 'XData', [current_pos(2)-0.25  current_pos(2)+0.25], 'YData', [current_pos(1)-0.25  current_pos(1)+0.25])
+               % imshow(I, 'XData', [current_pos(2)-0.25  current_pos(2)+0.25], 'YData', [current_pos(1)-0.25  current_pos(1)+0.25])
                 %上下左右寫在哪裡; 背景是白色的
+
+             %[xx, yy]  = Secdraw(45, 90, 1);
+             %patch( xx, yy, 'b', 'EdgeColor', 'b', 'EraseMode', 'none', 'XData', [current_pos(2)-0.25  current_pos(2)+0.25], 'YData', [current_pos(1)-0.25  current_pos(1)+0.25]) ;
+             %set( gca, 'DataAspectRatio', [1 1 1] );
             end
+            
+            
         
     end
 end
