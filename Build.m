@@ -16,11 +16,12 @@ classdef Build < Maze
                
                 drawBorder(obj);
                 hold on;
-                %obj.paths = obj.compute_paths(obj);
-                %drawDot(obj,  obj.paths(2, 1).container);
+                obj.paths = obj.compute_paths(obj);
+                %drawDot(obj,  obj.paths(1, 1).container);
                 
             end
-        
+    end
+    methods(Access = protected)
             function  drawBorder(obj)
                  %inner border
                 for order=1:1:size(obj.wall, 1)
@@ -98,8 +99,6 @@ classdef Build < Maze
              %patch( xx, yy, 'b', 'EdgeColor', 'b', 'EraseMode', 'none', 'XData', [current_pos(2)-0.25  current_pos(2)+0.25], 'YData', [current_pos(1)-0.25  current_pos(1)+0.25]) ;
              %set( gca, 'DataAspectRatio', [1 1 1] );
             end
-            
-            
-        
+
     end
 end

@@ -1,4 +1,4 @@
-classdef Move < Maze
+classdef Move < Build
     %UNTITLED Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -9,14 +9,13 @@ classdef Move < Maze
        way_though;
        end_game;
        fig;
-       build;
        
     end
     
     methods
          function obj = Move(filename)
-                 obj@Maze(filename);
-                 obj.build = Build(filename);
+                 obj@Build(filename);
+                 %obj.build = Build(filename);
                  obj.current_pos = obj.origin;
                  obj.next_pos = obj.current_pos;
                  obj.end_game = false;                
