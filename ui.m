@@ -56,14 +56,23 @@ classdef ui<Build
             disp('shortestPath')
             obj.route_val_txt.String = num2str(obj.current_route);
             obj.length_val_txt = obj.paths(1, 1).length;
-            drawDot(obj.paths(1, 1).container);
+            obj.drawDot(obj.paths(1, 1).container);
         end
         function transPath(obj, source,event)
                 disp('transPath')
-                for  
-                
-        end
+                for i = 1:1:obj.total_route
+                    if find(obj.paths(i, 1).container == obj.portal(:,1),1)                      
+                        obj.current_route = i;
+                        break;
+                    else
+                        obj.current_route = 0;
+                    end
+                end
+                disp(obj.current_route);
+                obj.route_val_txt.String = num2str(obj.current_route);
+                obj.length_val_txt = obj.paths(obj.current_route, 1).length;
+                obj.drawDot(obj.paths(obj.current_route, 1).container);  
+            end
     end
-    
 end
 
