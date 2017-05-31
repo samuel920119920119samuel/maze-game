@@ -19,14 +19,15 @@ classdef Move < Build
                  obj.current_pos = obj.origin;
                  obj.next_pos = obj.current_pos;
                  obj.end_game = false;                
+                  obj.step = 0;
                  plot(obj.current_pos(2), obj.current_pos(1), 'y.',  'MarkerSize', 40);
                  obj.fig = gcf;
-                 set(obj.fig,'KeyPressFcn',@obj.key_event);
+                 set(obj.fig,'KeyReleaseFcn',@obj.key_event);
                  obj.paths = obj.compute_paths(obj);
          end
          function []=key_event(obj,handle,data)
              disp('function')
-             if  obj.end_game == false
+             if  obj.end_game == false && ~strcmp(data.Key,'0')
                 disp('if')
                 disp(data.Key) 
                  if(strcmp(data.Key,'leftarrow'))
@@ -54,15 +55,15 @@ classdef Move < Build
                           obj.next_pos = obj.portal(:,1);
                       end
                       obj.current_pos = obj.next_pos;
-                      %obj.step = obj.step+1;
+                      obj.step = obj.step+1;
                     otherwise
                        disp('switch')
                       obj.current_pos =  obj.next_pos;
-                      %obj.step = obj.step+1;
+                      obj.step = obj.step+1;
                       
                 end
-                %obj.way_though(:,obj.step) = obj.current_pos;
-                %obj.build.drawDot(obj,  obj.way_though);
+                obj.way_though(:,obj.step) = obj.current_pos;
+                obj.drawDot( obj.way_though);
                 plot(obj.current_pos(2), obj.current_pos(1), 'y.',  'MarkerSize', 40);
                
              end

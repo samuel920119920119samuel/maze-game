@@ -80,11 +80,15 @@ classdef Maze < handle
                 adjacent_cells = [];
                 if(~isempty(obj.portal) && Path.equals(path.last(), obj.portal(:,1)))
                    if(~Path.equals(path.prelast(), obj.portal(:,2)))
-                      adjacent_cells = obj.portal(:,2);
+                     % adjacent_cells = obj.portal(:,2);
+                     paths_queue.push(path.clone().add_not_count(obj.portal(:,2)))
+                     continue
                    end
                 elseif(~isempty(obj.portal) && Path.equals(path.last(), obj.portal(:,2)))
                    if(~Path.equals(path.prelast(), obj.portal(:,1)))
-                       adjacent_cells = obj.portal(:,1);
+                       %adjacent_cells = obj.portal(:,1);
+                       paths_queue.push(path.clone().add_not_count(obj.portal(:,1)))
+                       continue
                    end
                 end
                 

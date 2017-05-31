@@ -17,7 +17,7 @@ classdef Build < Maze
                 drawBorder(obj);
                 hold on;
                 obj.paths = obj.compute_paths(obj);
-                %drawDot(obj,  obj.paths(1, 1).container);
+                drawDot(obj,  obj.paths(1, 1).container);
                 
             end
     end
@@ -88,7 +88,7 @@ classdef Build < Maze
                 plot(obj.road(:, 2), obj.road(:, 1), 'g.',  'MarkerSize', 20)
                 plot(obj.portal(2, :), obj.portal(1, :), 'w.',  'MarkerSize', 20)
                 
-                plot(path_pos(2, :), path_pos(1, :), 'k.',  'MarkerSize', 20)
+                plot(path_pos(2, :), path_pos(1, :), 'k.',  'MarkerSize', 50)
                 
                 %I = imread('pacman.svg.png');         
                 %imshow(imrotate(A,90));

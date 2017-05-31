@@ -16,7 +16,7 @@ classdef Path < handle
     methods
         function obj=Path(path)
             obj.container = path;
-            obj.length = 1;
+            obj.length = 0;
         end
         
         function RowCol = last(obj)
@@ -35,6 +35,10 @@ classdef Path < handle
             %add next position path
             obj.container = [obj.container next];
             obj.length = obj.length + 1;
+        end
+        
+        function obj = add_not_count(obj,next)
+            obj.container = [obj.container next];
         end
         
         function newPath = clone(obj)
