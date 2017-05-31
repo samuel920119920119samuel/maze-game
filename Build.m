@@ -16,8 +16,8 @@ classdef Build < Maze
                
                 drawBorder(obj);
                 hold on;
-                obj.paths = obj.compute_paths(obj);
-                drawDot(obj,  obj.paths(1, 1).container);
+                %obj.paths = obj.compute_paths(obj);
+                %drawDot(obj,  obj.paths(1, 1).container);
                 
             end
     end

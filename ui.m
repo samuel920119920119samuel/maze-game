@@ -23,16 +23,12 @@ classdef ui<Build
              length_txt = uicontrol('Style','text', 'Position',[width*2 height width height],'String','length:');
              obj.length_val_txt = uicontrol('Style','text', 'Position',[width*3 height width height],'String', obj.paths(1, 1).length);           
              pre_route_btn = uicontrol('Style', 'pushbutton', 'String', 'previous route', 'Position', [width*4 height width height], 'Callback', @obj.preRoute);     
-             next_route_btn = uicontrol('Style', 'pushbutton', 'String', 'next route', 'Position', [width*5 height width height], 'Callback', @nextRoute);     
-             shortest_path_btn = uicontrol('Style', 'pushbutton', 'String', 'shortest path', 'Position', [width*6 height width height], 'Callback', @shortestPath);     
-             trans_path_btn = uicontrol('Style', 'pushbutton', 'String', 'through trans', 'Position', [width*7 height width height], 'Callback', @transPath);     
+             next_route_btn = uicontrol('Style', 'pushbutton', 'String', 'next route', 'Position', [width*5 height width height], 'Callback', @obj.nextRoute);     
+             shortest_path_btn = uicontrol('Style', 'pushbutton', 'String', 'shortest path', 'Position', [width*6 height width height], 'Callback', @obj.shortestPath);     
+             trans_path_btn = uicontrol('Style', 'pushbutton', 'String', 'through trans', 'Position', [width*7 height width height], 'Callback', @obj.transPath);     
             
-             function shortestPath(obj, source,event)
-                disp('shortestPath')  
-             end
-             function transPath(obj, source,event)
-                disp('transPath')  
-             end
+             
+             
         end
         function preRoute(obj, source,event)
                 disp('preRoute') 
@@ -55,7 +51,18 @@ classdef ui<Build
                 obj.route_val_txt.String = num2str(obj.current_route);
                 obj.length_val_txt = obj.paths(obj.current_route, 1).length;
                 obj.drawDot(obj.paths(obj.current_route, 1).container);
-         end
+        end
+        function shortestPath(obj, source,event)
+            disp('shortestPath')
+            obj.route_val_txt.String = num2str(obj.current_route);
+            obj.length_val_txt = obj.paths(1, 1).length;
+            drawDot(obj.paths(1, 1).container);
+        end
+        function transPath(obj, source,event)
+                disp('transPath')
+                for  
+                
+        end
     end
     
 end
