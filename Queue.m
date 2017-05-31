@@ -17,6 +17,10 @@ classdef Queue < handle
             obj.container = obj.container(:,2:end);
         end
         
+        function []=putback(obj,value)
+            obj.container = [value obj.container];
+        end
+        
         function value = is_empty(obj)
             value = isempty(obj.container);
         end

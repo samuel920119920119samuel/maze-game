@@ -29,6 +29,18 @@ classdef Maze < handle
             p = obj.paths;
         end
         
+        function p = get_shortest_paths(obj)
+            if isempty(obj.paths)
+                obj.paths = Maze.compute_paths(obj);
+            end
+            p = obj.paths(1);
+            for i=2:length(obj.paths)
+                if obj.paths(i).length ~= p(1).length
+                    break, end
+                p = [p obj.paths(i)];
+            end
+        end
+        
         function obj = Maze(filename)
             file = fopen(filename);
             map = fread(file);
@@ -81,20 +93,22 @@ classdef Maze < handle
                 if(~isempty(obj.portal) && Path.equals(path.last(), obj.portal(:,1)))
                    if(~Path.equals(path.prelast(), obj.portal(:,2)))
                      % adjacent_cells = obj.portal(:,2);
-                     paths_queue.push(path.clone().add_not_count(obj.portal(:,2)))
+                     % paths_queue.push(path.clone().add_not_count(obj.portal(:,2)))
+                     paths_queue.putback(path.clone().add_not_count(obj.portal(:,2)))
                      continue
                    end
                 elseif(~isempty(obj.portal) && Path.equals(path.last(), obj.portal(:,2)))
                    if(~Path.equals(path.prelast(), obj.portal(:,1)))
                        %adjacent_cells = obj.portal(:,1);
-                       paths_queue.push(path.clone().add_not_count(obj.portal(:,1)))
+                       %paths_queue.push(path.clone().add_not_count(obj.portal(:,1)))
+                       paths_queue.putback(path.clone().add_not_count(obj.portal(:,1)))
                        continue
                    end
                 end
                 
-                if isempty(adjacent_cells)
+                %if isempty(adjacent_cells)
                    adjacent_cells = Maze.find_adjacent(obj,path.last());
-                end
+                %end
                 
                 %adjacent_cells = Maze.find_adjacent(obj,path.last());
                 for c = adjacent_cells(:,:)
