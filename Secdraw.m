@@ -1,4 +1,4 @@
-function [xx, yy] = Secdraw(start_angle, sector_angle, radius)
+function [xx, yy] = Secdraw(start_angle, sector_angle, radius, xcoord, ycoord)
 
 %  usage: [xx, yy]  = secdraw(start_angle, sector_angle, radius, clk_wise)
 %
@@ -36,7 +36,7 @@ function [xx, yy] = Secdraw(start_angle, sector_angle, radius)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-if nargin < 1 | isempty( nargin ) 
+if nargin < 1 isempty( nargin ) 
     %disp '';
     disp '-- error in usage --------------------------------';
     disp '      Not enough input arguments.'; 
@@ -70,6 +70,6 @@ theta = theta0 + theta1 + [ 0; angle_ratio*(0:n)'/n; 0 ]*2*pi;
 [xx,yy] = pol2cart(theta,r);
 
 % plot if not enough output variable are given
-if nargout < 2,
-    hh=patch(xx, yy, 'b','EdgeColor','b','EraseMode','none');
+if nargout < 2
+    hh=patch(xx+xcoord, yy+ycoord, 'k','EdgeColor','k','EraseMode','none');
 end
