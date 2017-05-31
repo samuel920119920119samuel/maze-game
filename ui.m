@@ -71,7 +71,7 @@ classdef ui<Build
                 disp(obj.current_route);
                 obj.route_val_txt.String = num2str(obj.current_route);
                 obj.length_val_txt = obj.paths(obj.current_route, 1).length;
-                obj.drawDot(obj.paths(obj.current_route, 1).container);  
+                obj.drawDot(obj.paths(obj.current_route, 1).container); 
             end
     end
 end
