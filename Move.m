@@ -7,18 +7,20 @@ classdef Move < Build
        next_pos;
        way_though;
        direction;
+       steps;
+       uicontrol
        fig;  
     end
-    
+
     methods
          function obj = Move(filename)
-                global steps;
                  obj@Build(filename);
-                 %obj.build = Build(filename);
+                 obj.uicontrol = ui(filename);
+                 obj.steps = 1;
                  obj.current_pos = obj.origin;
                  obj.next_pos = obj.current_pos;            
-                 obj.way_though(:,steps) = obj.origin;
-                 plot(obj.current_pos(2), obj.current_pos(1), 'y.',  'MarkerSize', 60);
+                 obj.way_though(:,obj.steps) = obj.origin;
+                 plot(obj.current_pos(2), obj.current_pos(1), 'y.',  'MarkerSize', 60);   
                  Secdraw(-30, 60, 0.4, obj.current_pos(2), obj.current_pos(1))
                  obj.fig = gcf;
                  set(obj.fig,'KeyPressFcn',@obj.key_event);
@@ -27,7 +29,6 @@ classdef Move < Build
          function []=key_event(obj,handle,data)
              disp('function')
             global end_game;
-            global steps;
              if  (end_game == false && ~strcmp(data.Key,'0')) || strcmp(data.Key,'space')
                 disp('if')
                 disp(data.Key) 
@@ -53,7 +54,7 @@ classdef Move < Build
                    case Move.FINAL
                       obj.current_pos =  obj.next_pos;
                       end_game  = true;
-                      steps = steps+1;
+                      obj.steps = obj.steps+1;
                    case Move.PORTAL
                       if obj.next_pos == obj.portal(:,1)
                           obj.next_pos = obj.portal(:,2);
@@ -61,17 +62,22 @@ classdef Move < Build
                           obj.next_pos = obj.portal(:,1);
                       end
                       obj.current_pos = obj.next_pos;
-                      steps = steps+1;
+                      obj.steps = obj.steps+1;
                     otherwise
                        disp('switch')
                       obj.current_pos =  obj.next_pos;
-                      steps = steps+1;
+                      obj.steps = obj.steps+1;
                       
                 end
-                obj.way_though(:,steps) = obj.current_pos;
-                obj.drawDot( obj.way_though);                
+                obj.way_though(:,obj.steps) = obj.current_pos;
+                obj.drawDot( obj.way_though);
+                obj.uicontrol.route_val_txt.String ='yours';
+                disp(obj.uicontrol.length_val_txt);
+                obj.uicontrol.length_val_txt.String = obj.steps-1;
                 plot(obj.current_pos(2), obj.current_pos(1), 'y.',  'MarkerSize', 60);
-                pause(0.15);
+                pause(0.05);
+                Secdraw(obj.direction-15, 30, 0.4, obj.current_pos(2), obj.current_pos(1))
+                pause(0.05);
                 Secdraw(obj.direction-30, 60, 0.4, obj.current_pos(2), obj.current_pos(1))
              end
           end

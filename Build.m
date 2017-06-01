@@ -16,7 +16,6 @@ classdef Build < Maze
                
                 drawBorder(obj);
                 hold on;
-                %obj.paths = obj.compute_paths(obj);
                 drawDot(obj, obj.origin);
                 
             end
@@ -83,7 +82,6 @@ classdef Build < Maze
             
             function drawDot(obj, path_pos)
                 
-                %plot(obj.origin(2), obj.origin(1), 'y.', 'MarkerSize', 40)
                 plot(obj.final(2), obj.final(1), 'y.', 'MarkerSize', 40)
                 plot(obj.road(:, 2), obj.road(:, 1), 'k.',  'MarkerSize', 60)
                 plot(obj.road(:, 2), obj.road(:, 1), 'o','MarkerFaceColor', [0.9 0.8 0.7],  'MarkerSize', 5, 'MarkerEdgeColor', [0.9 0.8 0.7])

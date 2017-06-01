@@ -17,7 +17,6 @@ classdef ui<Build
              obj.total_route = length(obj.paths);
              width = 120;
              height = 30;         
-             global steps;
              route_txt = uicontrol('Style','text', 'Position',[0 height width height],'String','route:', 'FontSize', 13);
              obj.route_val_txt = uicontrol('Style','text', 'Position',[width height width height],'String', strcat(num2str(obj.current_route), {' / '}, num2str(obj.total_route)),'FontSize', 13);
              length_txt = uicontrol('Style','text', 'Position',[width*2 height width height],'String','length:', 'FontSize', 13);
@@ -37,8 +36,8 @@ classdef ui<Build
                 else
                     obj.current_route = obj.current_route-1;
                 end
-                obj.route_val_txt.String = num2str(obj.current_route);
-                obj.length_val_txt = obj.paths(obj.current_route, 1).length;
+                obj.route_val_txt.String = strcat(num2str(obj.current_route), {' / '}, num2str(obj.total_route));
+                obj.length_val_txt.String = obj.paths(obj.current_route, 1).length;
                 obj.drawDot(obj.paths(obj.current_route, 1).container);
         end
         function nextRoute(obj, source,event)
@@ -50,8 +49,8 @@ classdef ui<Build
                 else
                     obj.current_route = obj.current_route+1;
                 end
-                obj.route_val_txt.String = num2str(obj.current_route);
-                obj.length_val_txt = obj.paths(obj.current_route, 1).length;
+                obj.route_val_txt.String = strcat(num2str(obj.current_route), {' / '}, num2str(obj.total_route));
+                obj.length_val_txt.String = obj.paths(obj.current_route, 1).length;
                 obj.drawDot(obj.paths(obj.current_route, 1).container);
         end
         function shortestPath(obj, source,event)
@@ -59,8 +58,8 @@ classdef ui<Build
             end_game = true;
             disp('shortestPath')
             obj.current_route = 1;
-            obj.route_val_txt.String = num2str(obj.current_route);
-            obj.length_val_txt = obj.paths(1, 1).length;
+            obj.route_val_txt.String = strcat(num2str(obj.current_route), {' / '}, num2str(obj.total_route));
+            obj.length_val_txt.String = obj.paths(1, 1).length;
             obj.drawDot(obj.paths(1, 1).container);
         end
         function transPath(obj, source,event)
@@ -76,8 +75,8 @@ classdef ui<Build
                     end
                 end
                 disp(obj.current_route);
-                obj.route_val_txt.String = num2str(obj.current_route);
-                obj.length_val_txt = obj.paths(obj.current_route, 1).length;
+                obj.route_val_txt.String = strcat(num2str(obj.current_route), {' / '}, num2str(obj.total_route));
+                obj.length_val_txt.String = obj.paths(obj.current_route, 1).length;
                 obj.drawDot(obj.paths(obj.current_route, 1).container); 
          end
          
