@@ -79,6 +79,15 @@ classdef Move < Build
                 Secdraw(obj.direction-15, 30, 0.4, obj.current_pos(2), obj.current_pos(1))
                 pause(0.05);
                 Secdraw(obj.direction-30, 60, 0.4, obj.current_pos(2), obj.current_pos(1))
+                
+                if end_game  == true
+                    e_sec = 60;
+                    for sec = 45:7.5:195    
+                         Secdraw(obj.direction-sec, e_sec, 0.4, obj.current_pos(2), obj.current_pos(1))
+                         pause(0.08);
+                         e_sec = e_sec+15;
+                    end
+                end
              end
           end
     end
