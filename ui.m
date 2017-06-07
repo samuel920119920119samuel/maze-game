@@ -66,18 +66,24 @@ classdef ui<Build
                 global end_game;
                  end_game = true;
                 disp('transPath')
-                for i = 1:1:obj.total_route
-                    if find(obj.paths(i, 1).container == obj.portal(:,1),1)                      
-                        obj.current_route = i;
-                        break;
-                    else
-                        obj.current_route = 0;
+                if isempty(obj.portal)
+                    obj.current_route = 0;
+                    obj.length_val_txt.String = 0;
+                else
+                    for i = 1:1:obj.total_route
+                        is_pass = obj.paths(i, 1).container == obj.portal(:,1);
+                        is_pass = is_pass(1,:) & is_pass(2,:);
+                        if ~isempty(find(is_pass,1))
+                       % if find(obj.paths(i, 1).container == obj.portal(:,1))                      
+                            obj.current_route = i;
+                            obj.length_val_txt.String = obj.paths(obj.current_route, 1).length;
+                            obj.drawDot(obj.paths(obj.current_route, 1).container); 
+                            break;
+                       end
                     end
                 end
                 disp(obj.current_route);
-                obj.route_val_txt.String = strcat(num2str(obj.current_route), {' / '}, num2str(obj.total_route));
-                obj.length_val_txt.String = obj.paths(obj.current_route, 1).length;
-                obj.drawDot(obj.paths(obj.current_route, 1).container); 
+                obj.route_val_txt.String = strcat(num2str(obj.current_route), {' / '}, num2str(obj.total_route));        
          end
          
     end
